@@ -196,7 +196,7 @@
 
                         <div class="">
                             <div class="first-example">
-                                <input type="password" id="password-field" placeholder="New Pin" name="new_pin">
+                                <input type="password" id="password-field" placeholder="New Pin" name="newpin">
                                 <i id="pass-status" class="fa fa-eye" aria-hidden="true" onClick="viewPassword()"></i>
                             </div>
 

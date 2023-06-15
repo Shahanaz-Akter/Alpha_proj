@@ -196,7 +196,10 @@
                 </div>
 
 
-                <form action="{{url('/post_tob')}}" method="post">
+
+
+
+                <form action="{{url('/post_tob/'.$user->id)}}" method="post">
                     @csrf
                     <div class="col-lg-6 col-xl-6 col-md-6 col-sm-12 d-flex justify-content-center flex-column">
                         <div class="header mb-3">

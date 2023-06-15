@@ -167,6 +167,8 @@
 <body>
 
 
+
+
     <div class="login-page bg-light">
         <div class="container bg-white pt-3 pb-3 pe-5 ps-5 max-div" style="width:80%;min-height:430px;border-radius:10px; ;">
 
@@ -185,7 +187,7 @@
                         ">Enter Your Business Location.</span>
 
                     </div>
-                    <form action="{{url('/post_location')}}" method="post">
+                    <form action="{{url('/post_location/'.$user->id)}}" method="post">
                         @csrf
                         <!-- <label for="language">Select a Programming Language:</label> -->
                         <div>
@@ -208,30 +210,30 @@
                             </select>
 
                             <label for="language">Zip Code:</label>
-                            <select class="select3 mt-3 me-3" style="width:13%;" name="zip" id="language" required>
-                                <option value="javascript">#</option>
-                                <option value="javascript">1040</option>
-                                <option value="python">1240</option>
-                                <option value="c++">1300</option>
-                                <option value="java">1100</option>
+                            <select class="select3 mt-3 me-3" style="width:13%;" name="zipcode" id="language" required>
+                                <option value="1200">1200</option>
+                                <option value="1040">1040</option>
+                                <option value="1240">1240</option>
+                                <option value="1300">1300</option>
+                                <option value="1100">1100</option>
                             </select>
 
                             <label for="language">Road No:</label>
                             <select class="select4 mt-3 me-3" style="width:10%;" name="road" id="language" required>
-                                <option value="javascript">1</option>
-                                <option value="javascript">2</option>
-                                <option value="python">3</option>
-                                <option value="c++">4</option>
-                                <option value="java">5</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
                             </select>
 
                             <label for="language">House No:</label>
                             <select class="select5 mt-3" style="width:10%;" name="house" id="language" required>
-                                <option value="javascript">1</option>
-                                <option value="javascript">2</option>
-                                <option value="python">3</option>
-                                <option value="c++">4</option>
-                                <option value="java">5</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
                             </select>
 
                         </div>

@@ -35,7 +35,7 @@ class User extends Authenticatable
 
         'type_of_business',
         'district',
-        'city',
+        'road',
         'house',
         'zipcode',
         'city',

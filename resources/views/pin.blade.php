@@ -181,6 +181,7 @@
 <body>
 
 
+
     <div class="login-page bg-light">
         <div class="container bg-white pt-3 pb-3 pe-5 ps-5" style="width:70%;min-height:500px;border-radius:10px; ;">
 
@@ -189,7 +190,7 @@
                     <img src="vector/Website ztrios-13.png" alt="" style="width:100%;">
 
                 </div>
-                <form action="{{url('/post_pin')}}" method="post">
+                <form action="{{url('/post_pin/'.$user_id)}}" method="post">
                     @csrf
                     <div class="col-lg-6 col-xl-6 col-md-6 col-sm-12 d-flex justify-content-center flex-column">
                         <div class="header mb-3">

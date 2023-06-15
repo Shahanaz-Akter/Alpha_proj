@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Models\Otp_user;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 
@@ -18,6 +20,7 @@ class Otp extends Controller
 
     public function signUp()
     {
+
         return view('signup');
     }
 
@@ -128,46 +131,124 @@ class Otp extends Controller
         // if ($now->isBefore($user->expire_at)) {
         // }
 
-        if ($user && $now) {
-            return redirect('/tob');
+        if ($user && $now->isBefore($user->expire_at)) {
+            return redirect('/tob/' . $user->id);
         } else {
 
-            return redirect()->back();
-            // echo '<script>showPopupMessage("Data saved successfully.");</script>';
+            return redirect()->back()->with('error', "Your OTP is Invalid");
         }
     }
 
-    public function tob()
+    public function tob($id)
     {
 
-        return view('TOB');
-    }
-    public function post_tob(Request $re)
-    {
-
-        dd($re);
-
-        // return redirect('/location');
+        $user = user::where('id', $id)->first();
+        return view('TOB')->with('user', $user);
     }
 
-    public function location()
+
+    public function post_tob(Request $re, $id)
     {
-        return view('location');
+
+        $user = user::where('id', $id)->first();
+
+        $user->update(
+            [
+                'type_of_business' => $re->business
+            ]
+        );
+
+        return redirect('/location/' . $user->id);
     }
-    public function post_location(Request $re)
+
+    public function location($id)
     {
-        // dd($re);
-        return redirect("/pin");
+
+        $user = user::where('id', $id)->first();
+        return view('location')->with('user', $user);
     }
-    public function pin()
+    public function post_location(Request $re, $id)
     {
-        return view('pin');
+
+        $user = user::where('id', $id)->first();
+        $user->update([
+            'district' => $re->district,
+            'city' => $re->city,
+            'road' => $re->road,
+            'zipcode' => $re->zipcode,
+            'house' => $re->house
+        ]);
+        return redirect("/pin/" . $user->id);
     }
-    public function post_pin(Request $re)
+    public function pin($id)
     {
-        return redirect("/reset_pin");
+
+        $user = User::where('id', $id)->first();
+        $change = gettype($user->id);
+        return view('pin')->with('user_id', $user->id);
     }
-    public function reset_pin(Request $re)
+    public function post_pin(Request $re, $user_id)
+    {
+        $user = user::where('id', $user_id)->first();
+        $user->update([
+            'password' => Hash::make($re->new_pin),
+            'pin' => $re->new_pin
+        ]);
+        return redirect("/dashboard");
+    }
+
+    public function login()
+    {
+        return view('login');
+    }
+    public function post_login(Request $re)
+    {
+
+        // $error = $re->validate([
+
+        //     'email' => 'required|email|unique:users',
+        //     'password' => 'required|min:4|max:10',
+        // ]);
+        // redirect()->back()->with('error', $error);
+
+        $email = $re->email_or_phn;
+        $pass = $re->pass;
+
+        if (Auth::attempt(['email' => $email, 'password' => $pass])) {
+            return redirect('/dashboard');
+        } else {
+            return redirect()->back()->with('error', "User is Not Authenticated")->with('email', $email);
+            // return redirect()->back()->withErrors(['error' => 'User is Not Authenticated']);
+        }
+    }
+
+
+    public function dashboard()
+    {
+        return view('dashboard');
+    }
+
+
+
+
+    public function ottp()
+    {
+
+
+        return "hello";
+    }
+
+
+
+
+
+
+
+
+
+
+
+    public function reset_pin()
     {
         return view('resetpin');
     }

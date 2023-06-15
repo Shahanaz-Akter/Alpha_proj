@@ -175,6 +175,7 @@
 </head>
 
 <body>
+
     <div class="login-page bg-light">
         <div class="container bg-white pt-3 pb-3 pe-5 ps-5 max-div" style="width:80%;min-height:430px;border-radius:10px; ;">
             <div class="d-flex align-items-center justify-content-between">
@@ -183,7 +184,7 @@
                 </div>
                 <div class="links">
                     <span>New User?</span>
-                    <span><a href="signup.html" style="color:#E039F6;">Sign Up</a></span>
+                    <span><a href="{{route('signup')}}" style="color:#E039F6;">Sign Up</a></span>
                 </div>
             </div>
 
@@ -197,18 +198,36 @@
                         <h2><b>Welcome Back</b></h2>
                         <span style="color: #808080;">Login To Continue</span>
                     </div>
-                    <form action="">
+
+                    @if (session('error'))
+                    <div class="alert alert-danger text-center">
+                        {{ session('error') }}
+                    </div>
+                    @endif
+
+
+                    @if (session('email'))
+                    <div class="alert alert-danger text-center">
+                        {{ session('email') }}
+                    </div>
+                    @endif
+
+                    <form method="POST" action="{{url('/post_login')}}">
+                        @csrf
+
                         <div class="inputWithIcon">
-                            <input type="text" placeholder="Email address / Mobile number">
+                            <input type="text" placeholder="Email address / Mobile number" name="email_or_phn" required>
                             <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
                         </div>
+
+
                         <div class="inputWithIcon">
-                            <input type="text" placeholder="Enter Password">
+                            <input type="text" placeholder="Enter Password" name="pass" required>
                             <i class="fa-solid fa-lock"></i>
                         </div>
-                        <div class="buttons mt-3 ">
-                            <a href="" class="login-btn me-3">LOGIN</a>
-                            <a href="">Forget Password?</a>
+                        <div class="mt-3 ">
+                            <button type="submit" class="login-btn me-3">LOGIN</button>
+                            <a href="{{url('/otp')}}">Forget Password?</a>
                         </div>
                         <div class="login-with mt-5">
                             <span>Login With</span>

@@ -197,7 +197,7 @@
                 </div>
                 <div class="links">
                     <span>Already A User?</span>
-                    <span><a href="login.html" style="color:#E039F6;">Sign In</a></span>
+                    <span><a href="{{url('/login')}}" style="color:#E039F6;">Login</a></span>
                 </div>
             </div>
 
@@ -218,41 +218,39 @@
                     <div style="color: red;">{{$message}}</div>
                     @endif
 
-                    @error('first_name')
-                    <div style="color: red;">{{$message}}</div>
-                    @enderror
 
-                    @error('last_name')
-                    <div style="color: red;">{{$message}}</div>
-                    @enderror
-
-                    @error('user_name')
-                    <div style="color: red;">{{$message}}</div>
-                    @enderror
-
-                    @error('email')
-                    <div style="color: red;">{{$message}}</div>
-                    @enderror
-
-                    @error('mobile')
-                    <div style="color: red;">{{$message}}</div>
-                    @enderror
 
                     <form method="POST" action="{{route('sendOtp')}}">
                         @csrf
                         <div class="inputWithIcon">
+                            @error('first_name')
+                            <div style="color: red;">{{$message}}</div>
+                            @enderror
                             <input class="me-3" type="text" placeholder="First Name*" name="first_name">
+
+                            @error('last_name')
+                            <div style="color: red;">{{$message}}</div>
+                            @enderror
                             <input type="text" placeholder="Last Name*" name="last_name">
 
                         </div>
 
                         <div class="inputWithIcon">
+                            @error('user_name')
+                            <div style="color: red;">{{$message}}</div>
+                            @enderror
                             <input class="me-3" type="text" placeholder="User Name*" name="user_name">
+
+                            @error('email')
+                            <div style="color: red;">{{$message}}</div>
+                            @enderror
                             <input type="email" placeholder="Email Address*" name="email">
 
                         </div>
                         <div class="inputWithIcon">
-
+                            @error('mobile')
+                            <div style="color: red;">{{$message}}</div>
+                            @enderror
                             <input class="me-3" type="text" placeholder="Phone Number*" name="mobile">
                             <!-- <input type="text" placeholder="Company Address*"> -->
                         </div>
@@ -262,7 +260,7 @@
                         </div>
 
                         <div class="mt-3">
-                            <button class="inline-block" type="submit">SignUp and Generate OTP</button>
+                            <button class="inline-block" type="submit">SignUp & Generate OTP</button>
                         </div>
                     </form>
                 </div>

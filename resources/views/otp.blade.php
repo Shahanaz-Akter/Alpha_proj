@@ -152,6 +152,8 @@
 
 <body>
 
+
+
     <div class="login-page bg-light">
         <div class="container bg-white pt-3 pb-3 pe-5 ps-5 d-flex align-items-center justify-content-center " style="width:80%;min-height:430px;border-radius:10px;">
 
@@ -162,13 +164,19 @@
                 <div class="col-lg-6 col-xl-6 col-md-6 col-sm-12 d-flex flex-column justify-content-center">
 
                     <div class="header mb-3">
+                        @if(session('error'))
+
+                        <div class="alert alert-danger text-center">
+                            {{ session('error') }}
+                        </div>
+                        @endif
+
                         <h2><b>OTP</b></h2>
                         <p id="" class="text-center text-white bg-danger p-2 time" style="color: #808080;"><b>Time Remaining : <span id="timer"></span></b></p>
 
                         <p class="text-center" style="color: #808080	;
                         ">A 4 digit Code has been sent to +880183*****36</p>
                     </div>
-                    <p>{{ $id }}</p>
                     <form class="num_container" action="{{url('/post_otp')}}" method="post">
                         @csrf
 
@@ -381,18 +389,8 @@
 
     <!-- popup Message -->
     <script>
-        function showPopupMessage(message) {
-            $('#popupText').text(message);
-            $('#popupMessage').addClass('show');
-            setTimeout(function() {
-                $('#popupMessage').removeClass('show');
-            }, 3000); // Adjust the duration as desired (in milliseconds)
-        }
-
-
-        function popup_msg() {
-
-        }
+        // let error_msg = "{{session('error')}}";
+        // alert(error_msg);
     </script>
 
 </body>
