@@ -7,6 +7,7 @@ use App\Http\Controllers;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+
 Route::get('/example', function () {
     return view('example');
 });
@@ -27,6 +28,9 @@ Route::controller(App\Http\Controllers\Otp::class)->group(function () {
     Route::get('/login', 'login')->name('login');
     Route::post('/post_login', 'post_login')->name('post_login');
 
+
+    Route::get('/forgotten_password', 'forgotten_password')->name('forgotten_password');
+    Route::post('/post_forgotten_password', 'post_forgotten_password')->name('post_forgotten_password');
 
     Route::get('/reset_pin', 'reset_pin')->name('reset_pin');
     Route::post('/post_resetpin', 'post_resetpin')->name('post_resetpin');

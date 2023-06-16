@@ -17,6 +17,24 @@ class Otp extends Controller
 {
 
 
+    function forgotten_password()
+    {
+        return view('forgotten_password');
+    }
+
+    function post_forgotten_password(Request $re)
+    {
+        $email = User::where('email', $re->email)->first();
+        // dd($email);
+
+        if ($email) {
+            return redirect('/sendOtp');
+        } else {
+            return redirect()->back()->withErrors(['error' => "Whoops! Something went Wrong."]);
+        }
+
+        // return view();
+    }
 
     public function signUp()
     {
