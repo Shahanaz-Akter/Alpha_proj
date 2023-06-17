@@ -203,7 +203,7 @@
 
             <div class="row">
                 <div class="col-lg-6 col-xl-6 col-md-6 col-sm-12">
-                    <img src="{{asset('assets/images/auth/signup.png')}}" alt="" style="width: 100%;">
+                    <img src="{{asset('assets/images/auth/forgot.png')}}" alt="" style="width: 100%;">
 
 
                 </div>
@@ -230,7 +230,7 @@
                         @endif
 
                         <div class="inputWithIcon">
-                            <input class="me-3" type="text" placeholder="Enter Your Email*" name="email">
+                            <input class="me-3" type="text" placeholder="Enter Your Mobile Number*" name="mobile">
                         </div>
 
 

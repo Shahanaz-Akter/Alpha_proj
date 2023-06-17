@@ -31,9 +31,11 @@ Route::controller(App\Http\Controllers\Otp::class)->group(function () {
 
     Route::get('/forgotten_password', 'forgotten_password')->name('forgotten_password');
     Route::post('/post_forgotten_password', 'post_forgotten_password')->name('post_forgotten_password');
+    Route::get('/further_otp/{id}', 'further_otp')->name('further_otp');
+    Route::post('/post_further_otp', 'post_further_otp')->name('post_further_otp');
 
-    Route::get('/reset_pin', 'reset_pin')->name('reset_pin');
-    Route::post('/post_resetpin', 'post_resetpin')->name('post_resetpin');
 
-    Route::get('/otp', 'ottp')->name('otp');
+
+    Route::get('/reset_pin/{id}', 'reset_pin')->name('reset_pin');
+    Route::post('/post_resetpin/{id}', 'post_resetpin')->name('post_resetpin');
 });

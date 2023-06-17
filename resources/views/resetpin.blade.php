@@ -184,7 +184,8 @@
                     <img src="vector/Website ztrios-16.png" alt="" style="width:100%;">
 
                 </div>
-                <form action="{{url('/post_resetpin')}}" method="post">
+
+                <form action="{{url('/post_resetpin/'.$user_id)}}" method="post">
                     @csrf
                     <div class="col-lg-6 col-xl-6 col-md-6 col-sm-12 d-flex justify-content-center flex-column">
                         <div class="header mb-3">
@@ -196,7 +197,7 @@
 
                         <div class="">
                             <div class="first-example">
-                                <input type="password" id="password-field" placeholder="New Pin" name="newpin">
+                                <input type="password" id="password-field" placeholder="New Pin" name="pin">
                                 <i id="pass-status" class="fa fa-eye" aria-hidden="true" onClick="viewPassword()"></i>
                             </div>
 

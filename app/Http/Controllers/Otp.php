@@ -22,18 +22,108 @@ class Otp extends Controller
         return view('forgotten_password');
     }
 
-    function post_forgotten_password(Request $re)
+    function post_forgotten_password(Request $request)
     {
-        $email = User::where('email', $re->email)->first();
+        $mobile = User::where('mobile', $request->mobile)->first();
         // dd($email);
 
-        if ($email) {
-            return redirect('/sendOtp');
+        if ($mobile) {
+
+            $mobile->update([
+                'otp' => null,
+                'expire_at' => null,
+                'pin' => null
+            ]);
+
+
+            $app_key = config('app.alpha_app');
+            $number = config('app.number');
+
+
+            //Generate OTP
+            // $user_otp = Otp_user::where('user_id',  $user->id)->latest()->first();
+            $now = Carbon::now();
+            // dd($now);
+            $now_time_plus_10 = $now->addMinute(5);
+            $mobile->update([
+                'otp' => rand(1234, 9999),
+                'expire_at' => $now_time_plus_10,
+            ]);
+            // dd($user);
+
+            $userr = User::where('mobile', $request->mobile)->first();
+
+            // dd($actual_Otp);
+
+            $otpp = $userr->otp;
+            // dd($otpp);
+
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => 'https://api.sms.net.bd/sendsms',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => array('api_key' => $app_key, 'msg' => "Your Ztrios OTP Number:" . $otpp, 'to' => $number),
+            ));
+
+            $response = curl_exec($curl);
+
+            curl_close($curl);
+
+            // echo ("Message is Successfully Delivered to the Phone Number");
+
+            $encrypt_id = Crypt::encrypt($userr->id);  //for sexurity purpose
+            // dd($encrypt_id);
+            return redirect('/further_otp/' . $encrypt_id);
         } else {
+
             return redirect()->back()->withErrors(['error' => "Whoops! Something went Wrong."]);
         }
 
         // return view();
+    }
+
+
+    public function further_otp()
+    {
+        return view('further_otp');
+    }
+
+    public function  post_further_otp(Request $request)
+    {
+
+        $user = User::where('otp', $request->otp)->first();
+        // dd($user);
+        $now = Carbon::now();
+
+        // $user && $now->isBefore($user->expire_at)
+        if ($user) {
+            return redirect('/reset_pin/' . $user->id);
+        } else {
+            return redirect()->back()->with('error', "Your OTP is Invalid");
+        }
+    }
+
+    public function reset_pin($id)
+    {
+
+        $user =  User::where('id', $id)->first();
+
+        return view('resetpin')->with('user_id', $user->id);
+    }
+
+    public function post_resetpin(Request $re, $id)
+    {
+
+        $user = User::where('id', $id)->first();
+
+        $user->update([
+            'pin' => $re->pin
+        ]);
+
+        // return redirect('/login');
+        return redirect('/dashboard');
     }
 
     public function signUp()
@@ -76,6 +166,7 @@ class Otp extends Controller
 
         $app_key = config('app.alpha_app');
         $number = config('app.number');
+
 
         $this->generateOtp($re->email); //76w36476767
 
@@ -244,34 +335,5 @@ class Otp extends Controller
     public function dashboard()
     {
         return view('dashboard');
-    }
-
-
-
-
-    public function ottp()
-    {
-
-
-        return "hello";
-    }
-
-
-
-
-
-
-
-
-
-
-
-    public function reset_pin()
-    {
-        return view('resetpin');
-    }
-    public function post_resetpin(Request $re)
-    {
-        dd($re);
     }
 }
