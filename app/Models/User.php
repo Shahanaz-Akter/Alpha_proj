@@ -17,30 +17,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'first_name',
-        'last_name',
-        'user_name',
-        'email',
-        'password',
-        'pin',
-        'reset_pin',
-        'mobile',
 
-
-
-        'otp',
-        'expire_at',
-
-
-        'type_of_business',
-        'district',
-        'road',
-        'house',
-        'zipcode',
-        'city',
-
-    ];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -59,5 +36,25 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+    ];
+
+    protected $fillable = [
+        'first_name',
+        'last_name',
+        'user_name',
+        'email',
+        'password',
+        'pin',
+        'reset_pin',
+        'mobile',
+        'otp',
+        'expire_at',
+        'type_of_business',
+        'district',
+        'road',
+        'house',
+        'zipcode',
+        'city',
+
     ];
 }

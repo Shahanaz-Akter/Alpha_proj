@@ -170,7 +170,6 @@ class Otp extends Controller
 
         $this->generateOtp($re->email); //76w36476767
 
-
         $userr = User::where('email', $re->email)->first();
 
         // dd($actual_Otp);
@@ -193,7 +192,7 @@ class Otp extends Controller
 
         // echo ("Message is Successfully Delivered to the Phone Number");
 
-        $encrypt_id = Crypt::encrypt($userr->id);  //for sexurity purpose
+        $encrypt_id = Crypt::encrypt($userr->id);  //for security purpose
         // dd($encrypt_id);
         return redirect('/otp/' . $encrypt_id);
     }
@@ -215,16 +214,57 @@ class Otp extends Controller
     }
 
 
+    public function resend($id)
+    {
+        // dd($id);
+        $user_resend_code = User::where('id', $id)->first();
+        $user_resend_code->update([
+            'otp' => null,
+            'expire_at' => null
+        ]);
+
+        // return redirect()->back();
+        $app_key = config('app.alpha_app');
+        $number = config('app.number');
 
 
+        $this->generateOtp($user_resend_code->email); //76w36476767
+
+        $userr = User::where('email', $user_resend_code->email)->first();
+
+        // dd($actual_Otp);
+
+        $otpp = $userr->otp;
+        // dd($otpp);
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://api.sms.net.bd/sendsms',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => array('api_key' => $app_key, 'msg' => "Your Ztrios OTP Number:" . $otpp, 'to' => $number),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+
+        // echo ("Message is Successfully Delivered to the Phone Number");
+
+        $encrypt_id = Crypt::encrypt($userr->id);  //for security purpose
+        // dd($encrypt_id);
+        return redirect('/otp/' . $encrypt_id);
+    }
 
     public function Otp($id)
     {
 
 
         $decrypt_id =  Crypt::decrypt($id);
+        // dd($decrypt_id);
 
-        return view('otp')->with(['id', $decrypt_id]);
+        return view('otp')->with('id', $decrypt_id);
     }
 
     public function post_Otp(Request $request)
@@ -312,18 +352,17 @@ class Otp extends Controller
     }
     public function post_login(Request $re)
     {
-
-        // $error = $re->validate([
-
-        //     'email' => 'required|email|unique:users',
-        //     'password' => 'required|min:4|max:10',
-        // ]);
-        // redirect()->back()->with('error', $error);
-
         $email = $re->email_or_phn;
         $pass = $re->pass;
 
-        if (Auth::attempt(['email' => $email, 'password' => $pass])) {
+        $user = User::where('email', $email)->first();
+        $token = $user->createToken('authToken')->plainTextToken;
+        dd($token);
+
+
+        if (Auth::attempt(['email' => $email, $email])) {
+
+
             return redirect('/dashboard');
         } else {
             return redirect()->back()->with('error', "User is Not Authenticated")->with('email', $email);

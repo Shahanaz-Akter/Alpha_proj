@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers;
+
+use App\Http\Controllers\Otp;
+use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -38,4 +39,7 @@ Route::controller(App\Http\Controllers\Otp::class)->group(function () {
 
     Route::get('/reset_pin/{id}', 'reset_pin')->name('reset_pin');
     Route::post('/post_resetpin/{id}', 'post_resetpin')->name('post_resetpin');
+
+    Route::get('/resend/{id}', 'resend')->name('resend');
+    Route::post('/post_resend', 'post_resend')->name('post_resend');
 });

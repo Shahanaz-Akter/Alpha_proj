@@ -154,6 +154,7 @@
 
 
 
+
     <div class="login-page bg-light">
         <div class="container bg-white pt-3 pb-3 pe-5 ps-5 d-flex align-items-center justify-content-center " style="width:80%;min-height:430px;border-radius:10px;">
 
@@ -189,7 +190,8 @@
                         <input type="text" name="otp" id="otp" style="display:none;">
 
                         <div class="text-center my-4">
-                            <p>Didn't receive the code? <span style="color: dodgerblue;"> <a href="{{url('/signup')}}">RESEND</a> </span></p>
+
+                            <p>Didn't receive the code? <span style="color: dodgerblue;"> <a href="{{url('/resend/'.$id)}}">RESEND</a> </span></p>
                         </div>
 
                         <button class="hide" type="submit" id="submit" onclick="popup_msg()">Verify</button>
