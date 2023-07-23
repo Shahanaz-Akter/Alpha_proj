@@ -356,11 +356,13 @@ class Otp extends Controller
         $pass = $re->pass;
 
         $user = User::where('email', $email)->first();
-        $token = $user->createToken('authToken')->plainTextToken;
-        dd($token);
+        // dd($user);
+        // shoili@gmail.com
+        // $token = $user->createToken('authToken')->plainTextToken;
+        // dd($token);
 
 
-        if (Auth::attempt(['email' => $email, $email])) {
+        if (Auth::attempt(['email' => $email, 'password' => $pass])) {
 
 
             return redirect('/dashboard');

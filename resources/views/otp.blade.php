@@ -176,7 +176,7 @@
                         <p id="" class="text-center text-white bg-danger p-2 time" style="color: #808080;"><b>Time Remaining : <span id="timer"></span></b></p>
 
                         <p class="text-center" style="color: #808080	;
-                        ">A 4 digit Code has been sent to +880183*****36</p>
+                        ">A 4 digit Code has been sent to +8801*******36</p>
                     </div>
                     <form class="num_container" action="{{url('/post_otp')}}" method="post">
                         @csrf

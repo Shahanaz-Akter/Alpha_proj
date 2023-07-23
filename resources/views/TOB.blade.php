@@ -191,13 +191,8 @@
 
             <div class="row">
                 <div class="col-lg-6 col-xl-6 col-md-6 col-sm-12">
-                    <img src="vector/Website ztrios-17.png" alt="" style="width:100%;">
-
+                    <img src="{{asset('/assets/images/auth/tob.png')}}" alt="" style="width:100%;">
                 </div>
-
-
-
-
 
                 <form action="{{url('/post_tob/'.$user->id)}}" method="post">
                     @csrf

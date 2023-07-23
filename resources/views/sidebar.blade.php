@@ -38,7 +38,7 @@
                 </div>
             </div>
 
-            <p class="text-muted left-user-info">Admin Head</p>
+            <p class="text-muted left-user-info">Admin Inventory</p>
 
             <ul class="list-inline">
                 <li class="list-inline-item">
@@ -101,30 +101,6 @@
                     </div>
                 </li>
 
-
-                <li>
-                    <a href="index.html#Inventory" data-bs-toggle="collapse">
-                        <i class="mdi mdi-email-outline"></i>
-                        <span> Inventory </span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <div class="collapse" id="Inventory">
-                        <ul class="nav-second-level">
-                            <li>
-                                <a href="email-inbox.html">All Inventory</a>
-                            </li>
-                            <li>
-                                <a href="/add_product">Add Product</a>
-                            </li>
-                            <li>
-                                <a href="email-inbox.html">Section 1</a>
-                            </li>
-                            <li>
-                                <a href="email-templates.html">Section 2</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
 
 
                 <li>

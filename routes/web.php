@@ -13,6 +13,10 @@ Route::get('/example', function () {
     return view('example');
 });
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+});
+
 Route::controller(App\Http\Controllers\Otp::class)->group(function () {
 
     Route::get('/', 'signUp')->name('signup');
